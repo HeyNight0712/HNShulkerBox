@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class InventoryClick implements Listener {
@@ -12,6 +13,19 @@ public class InventoryClick implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         // 獲取移動物品
         ItemStack itemClicked = event.getCurrentItem();
+
+        Player player = (Player) event.getWhoClicked();
+        ItemStack originalItem = Backpack.peekItem(player);
+
+        if (originalItem != null && originalItem.equals(itemClicked)) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onInventoryDrag(InventoryDragEvent event) {
+        // 獲取移動物品
+        ItemStack itemClicked = event.getOldCursor();
 
         Player player = (Player) event.getWhoClicked();
         ItemStack originalItem = Backpack.peekItem(player);
