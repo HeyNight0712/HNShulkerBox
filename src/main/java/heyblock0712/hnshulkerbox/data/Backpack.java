@@ -21,7 +21,15 @@ public class Backpack{
     }
 
     /**
-     * 搜索並刪除
+     * 移除 Map
+     * @param player 玩家
+     */
+    public static void removePlayer(Player player) {
+        playerItems.remove(player);
+    }
+
+    /**
+     * 搜索並返回 且刪除
      * 
      * @param player 玩家
      * @return 返回搜索 並起刪除
@@ -30,5 +38,11 @@ public class Backpack{
         return playerItems.remove(player);
     }
 
+    /**
+     * 搜索並返回
+     *
+     * @param player 玩家
+     * @return 返回搜索
+     */
     public static ItemStack peekItem(Player player) {return playerItems.get(player);}
 }

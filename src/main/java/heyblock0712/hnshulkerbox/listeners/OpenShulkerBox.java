@@ -2,7 +2,7 @@ package heyblock0712.hnshulkerbox.listeners;
 
 import heyblock0712.hnshulkerbox.data.Backpack;
 import heyblock0712.hnshulkerbox.utils.ShulkerBoxUtil;
-import org.bukkit.Material;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.event.EventHandler;
@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
 
@@ -36,6 +37,12 @@ public class OpenShulkerBox implements Listener {
 
         if (!(blockStateMeta.getBlockState() instanceof ShulkerBox)) return;
         ShulkerBox shulkerBox = (ShulkerBox) blockStateMeta.getBlockState();
+        ItemStack[] originalContents = shulkerBox.getInventory().getContents();
+
+        // 模擬庫存
+        String desiredName = shulkerBox.getCustomName();
+        Inventory inventory = Bukkit.createInventory(null, 27, desiredName != null ? desiredName : "Shulker Box");
+        inventory.setContents(originalContents);
 
         // 打開背包
         event.getPlayer().playSound(
@@ -43,7 +50,7 @@ public class OpenShulkerBox implements Listener {
                 Sound.BLOCK_SHULKER_BOX_OPEN,
                 1.0F,
                 new Random().nextFloat());
-        event.getPlayer().openInventory(shulkerBox.getInventory());
+        event.getPlayer().openInventory(inventory);
 
         // 紀錄物品
         Backpack.storeItem(event.getPlayer(), item);
