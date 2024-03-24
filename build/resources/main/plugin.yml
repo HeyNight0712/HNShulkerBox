@@ -1,0 +1,4 @@
+name: HNShulkerBox
+version: '1.0.0'
+main: heyblock0712.hnshulkerbox.HNShulkerBox
+api-version: '1.20'
