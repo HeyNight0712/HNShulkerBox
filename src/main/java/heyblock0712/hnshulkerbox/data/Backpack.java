@@ -9,6 +9,15 @@ import java.util.Map;
 public class Backpack{
     private static final Map<Player, ItemStack> playerItems = new HashMap<Player, ItemStack>();
 
+    /**
+     * 檢查是否有玩家
+     *
+     * @param player 玩家
+     * @return 是否有數據
+     */
+    public static boolean hasPlayer(Player player) {
+        return playerItems.containsKey(player);
+    }
     
     /**
      * 儲存玩家手上物品
