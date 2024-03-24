@@ -13,6 +13,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Random;
 
@@ -40,8 +41,9 @@ public class OpenShulkerBox implements Listener {
         ItemStack[] originalContents = shulkerBox.getInventory().getContents();
 
         // 模擬庫存
-        String desiredName = shulkerBox.getCustomName();
-        Inventory inventory = Bukkit.createInventory(null, 27, desiredName != null ? desiredName : "Shulker Box");
+        ItemMeta itemMeta = item.getItemMeta();
+        String name = itemMeta.hasDisplayName() ? itemMeta.getDisplayName() : "Shulker Box";
+        Inventory inventory = Bukkit.createInventory(null, 27, name);
         inventory.setContents(originalContents);
 
         // 打開背包
