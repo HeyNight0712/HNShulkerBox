@@ -51,7 +51,7 @@ public class OpenShulkerBox implements Listener {
                 event.getPlayer().getLocation(),
                 Sound.BLOCK_SHULKER_BOX_OPEN,
                 1.0F,
-                new Random().nextFloat());
+                1.0F);
         event.getPlayer().openInventory(inventory);
 
         // 紀錄物品
