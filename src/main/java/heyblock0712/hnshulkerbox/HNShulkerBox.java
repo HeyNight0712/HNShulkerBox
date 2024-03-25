@@ -11,7 +11,7 @@ public final class HNShulkerBox extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new OpenShulkerBox(), this);
-        getServer().getPluginManager().registerEvents(new InventoryClick(), this);
+        getServer().getPluginManager().registerEvents(new InventoryClick(this), this);
         getServer().getPluginManager().registerEvents(new InventoryClose(), this);
     }
 
