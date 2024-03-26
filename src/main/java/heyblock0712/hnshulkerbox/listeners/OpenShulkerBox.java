@@ -6,6 +6,7 @@ import heyblock0712.hnshulkerbox.utils.ShulkerBoxUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.block.ShulkerBox;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -38,6 +39,8 @@ public class OpenShulkerBox implements Listener {
         BlockStateMeta blockStateMeta = (BlockStateMeta) item.getItemMeta();
 
         if (!(blockStateMeta.getBlockState() instanceof ShulkerBox)) return;
+        Player player = event.getPlayer();
+
         ShulkerBox shulkerBox = (ShulkerBox) blockStateMeta.getBlockState();
         ItemStack[] originalContents = shulkerBox.getInventory().getContents();
 
@@ -48,19 +51,18 @@ public class OpenShulkerBox implements Listener {
         Inventory inventory = Bukkit.createInventory(null, 27, name);
         inventory.setContents(originalContents);
 
-        InventoryData inventoryData = new InventoryData(event.getPlayer(),inventory);
+        // 紀錄物品
+        InventoryData inventoryData = new InventoryData(player,inventory);
 
         // 打開背包
-        event.getPlayer().playSound(
-                event.getPlayer().getLocation(),
+        player.playSound(
+                player.getLocation(),
                 Sound.BLOCK_SHULKER_BOX_OPEN,
                 1.0F,
                 1.0F);
 
-        event.getPlayer().openInventory(inventoryData.getInventory(event.getPlayer()));
-
-        // 紀錄物品
-        Backpack.storeItem(event.getPlayer(), item);
+        player.sendMessage("["+ player.getName()+ "] " + "關閉 界伏盒");
+        event.getPlayer().openInventory(inventoryData.getInventory(player));
 
         // 取消事件
         event.setCancelled(true);
