@@ -1,6 +1,5 @@
 package heyblock0712.hnshulkerbox.listeners;
 
-import heyblock0712.hnshulkerbox.data.Backpack;
 import heyblock0712.hnshulkerbox.data.InventoryData;
 import heyblock0712.hnshulkerbox.utils.ShulkerBoxUtil;
 import org.bukkit.Bukkit;
@@ -16,8 +15,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.Random;
 
 public class OpenShulkerBox implements Listener {
 
@@ -52,17 +49,18 @@ public class OpenShulkerBox implements Listener {
         inventory.setContents(originalContents);
 
         // 紀錄物品
-        InventoryData inventoryData = new InventoryData(player,inventory);
+        InventoryData.put(player, inventory);
 
-        // 打開背包
+        // 音效回饋
         player.playSound(
                 player.getLocation(),
                 Sound.BLOCK_SHULKER_BOX_OPEN,
                 1.0F,
                 1.0F);
 
+        // 開啟
         player.sendMessage("["+ player.getName()+ "] " + "開啟 界伏盒");
-        event.getPlayer().openInventory(inventoryData.getInventory(player));
+        event.getPlayer().openInventory(InventoryData.getInventory(player));
 
         // 取消事件
         event.setCancelled(true);

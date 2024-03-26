@@ -1,10 +1,8 @@
 package heyblock0712.hnshulkerbox.listeners;
 
 import heyblock0712.hnshulkerbox.HNShulkerBox;
-import heyblock0712.hnshulkerbox.data.Backpack;
+import heyblock0712.hnshulkerbox.data.InventoryData;
 import heyblock0712.hnshulkerbox.utils.ShulkerBoxUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,7 +11,6 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Set;
@@ -31,7 +28,7 @@ public class InventoryClick implements Listener {
         Player player = (Player) event.getWhoClicked();
 
         // 過濾
-        if (!Backpack.hasPlayer(player)) return;
+        if (!InventoryData.hasPlayer(player)) return;
 
         ItemStack itemClicked = event.getCursor();
         int mainHandSlot = player.getInventory().getHeldItemSlot();
@@ -101,15 +98,19 @@ public class InventoryClick implements Listener {
      */
     private <T extends InventoryEvent> void delayedStorage(Player player, T event) {
             // 获取潜影盒的物品栏
-            ItemStack mainHeadItem = player.getInventory().getItemInMainHand();
-            ShulkerBox shulkerBox = (ShulkerBox) ((BlockStateMeta) mainHeadItem.getItemMeta()).getBlockState();
-            Inventory inventory = shulkerBox.getInventory();
+            // ItemStack mainHeadItem = player.getInventory().getItemInMainHand();
+            // ShulkerBox shulkerBox = (ShulkerBox) ((BlockStateMeta) mainHeadItem.getItemMeta()).getBlockState();
+            // Inventory inventory = shulkerBox.getInventory();
 
             // 设置新的库存内容
-            inventory.setContents(event.getInventory().getContents());
+            // inventory.setContents(event.getInventory().getContents());
 
             // 保存新的库存内容到潜影盒
-            BlockStateMeta itemMeta = (BlockStateMeta) mainHeadItem.getItemMeta();
-            itemMeta.setBlockState(shulkerBox);
+            // BlockStateMeta itemMeta = (BlockStateMeta) mainHeadItem.getItemMeta();
+            // itemMeta.setBlockState(shulkerBox);
+            // player.getInventory().setItemInMainHand(mainHeadItem);
+        Inventory inventory = InventoryData.getInventory(player);
+        inventory.setContents(event.getInventory().getContents());
+        InventoryData.put(player, inventory);
     }
 }

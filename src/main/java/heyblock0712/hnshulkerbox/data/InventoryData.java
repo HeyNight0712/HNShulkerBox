@@ -10,12 +10,9 @@ import java.util.Map;
 public class InventoryData {
     private static final Map<Player, Inventory> playerInventory = new HashMap<Player, Inventory>();
 
-    public InventoryData(Player player, Inventory inventory) {
-        playerInventory.put(player, inventory);
+    public static void put(Player player, Inventory inventory) {playerInventory.put(player, inventory);}
 
-    }
-
-    public Inventory getInventory(Player player) {
+    public static Inventory getInventory(Player player) {
         return playerInventory.get(player);
     }
 
