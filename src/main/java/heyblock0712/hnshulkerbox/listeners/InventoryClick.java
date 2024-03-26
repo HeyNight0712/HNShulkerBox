@@ -1,5 +1,6 @@
 package heyblock0712.hnshulkerbox.listeners;
 
+import heyblock0712.hnshulkerbox.HNShulkerBox;
 import heyblock0712.hnshulkerbox.data.Backpack;
 import heyblock0712.hnshulkerbox.utils.ShulkerBoxUtil;
 import org.bukkit.Bukkit;
@@ -10,7 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
@@ -62,7 +62,7 @@ public class InventoryClick implements Listener {
 
 
         delayedStorage(player, event);
-        player.sendMessage("儲存");
+        if (HNShulkerBox.debug) { player.sendMessage("更新 盒子狀態 (Click)");}
     }
 
     /**
@@ -81,14 +81,15 @@ public class InventoryClick implements Listener {
             for (Integer slot: rawSlots) {
                 if (slot >= 0 && slot < 27) {
                     event.setCancelled(true);
-                    event.getWhoClicked().sendMessage("取消拖動放置 盒子位置");
+
+                    if (HNShulkerBox.debug) { event.getWhoClicked().sendMessage("取消拖動放置 盒子位置");}
                     return;
                 }
             }
         }
 
         delayedStorage(player, event);
-        player.sendMessage("快速儲存");
+        if (HNShulkerBox.debug) { player.sendMessage("更新 盒子狀態 (Drag)");}
     }
 
     /**

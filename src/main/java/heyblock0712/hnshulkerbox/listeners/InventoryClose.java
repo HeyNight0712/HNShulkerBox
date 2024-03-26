@@ -17,23 +17,6 @@ public class InventoryClose implements Listener {
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
-        ItemStack mainHeadItem = player.getInventory().getItemInMainHand();
-
-        if (!Backpack.hasPlayer(player)) return;
-
-        // 重複檢查 防止出錯
-        if (mainHeadItem == null || !ShulkerBoxUtil.isShulkerBox(mainHeadItem.getType())) return;
-
-        ShulkerBox shulkerBox = (ShulkerBox) ((BlockStateMeta) mainHeadItem.getItemMeta()).getBlockState();
-        Inventory inventory = shulkerBox.getInventory();
-
-        // 獲取 庫存
-        inventory.setContents(event.getInventory().getContents());
-
-        // 寫入手上 盒子
-        BlockStateMeta itemMeta = (BlockStateMeta) mainHeadItem.getItemMeta();
-        itemMeta.setBlockState(shulkerBox);
-        mainHeadItem.setItemMeta(itemMeta);
 
         player.playSound(
                 event.getPlayer().getLocation(),

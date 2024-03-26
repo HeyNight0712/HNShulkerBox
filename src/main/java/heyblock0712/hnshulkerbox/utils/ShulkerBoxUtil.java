@@ -1,13 +1,11 @@
 package heyblock0712.hnshulkerbox.utils;
 
+import heyblock0712.hnshulkerbox.HNShulkerBox;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Set;
 
 public class ShulkerBoxUtil {
     private InventoryClickEvent event;
@@ -28,7 +26,8 @@ public class ShulkerBoxUtil {
     public boolean hotbarButtonHandMove(int mainHandSlot) {
         if (event.getHotbarButton() == mainHandSlot) {
             event.setCancelled(true);
-            player.sendMessage("取消快捷鍵 主手位置");
+
+            if (HNShulkerBox.debug) { player.sendMessage("取消快捷鍵 主手位置"); }
             return true;
         }
         return false;
@@ -37,7 +36,8 @@ public class ShulkerBoxUtil {
     public boolean hotbarButtonShulkerBoxMove(ItemStack hotbarButton) {
         if (hotbarButton != null && ShulkerBoxUtil.isShulkerBox(hotbarButton.getType())) {
             event.setCancelled(true);
-            player.sendMessage("取消快捷鍵 移動盒子");
+
+            if (HNShulkerBox.debug) { player.sendMessage("取消快捷鍵 移動盒子");}
             return true;
         }
         return false;
@@ -46,7 +46,8 @@ public class ShulkerBoxUtil {
     public boolean clickHandMove(int mainHandSlot) {
         if (event.getSlotType() == InventoryType.SlotType.QUICKBAR && event.getSlot() == mainHandSlot) {
             event.setCancelled(true);
-            player.sendMessage("取消點選 主手位置");
+
+            if (HNShulkerBox.debug) { player.sendMessage("取消點選 主手位置");}
             return true;
         }
         return false;
@@ -56,7 +57,8 @@ public class ShulkerBoxUtil {
     public boolean isShiftClickShulkerBox(ItemStack click) {
         if (click != null && ShulkerBoxUtil.isShulkerBox(click.getType()) && event.isShiftClick()) {
             event.setCancelled(true);
-            player.sendMessage("取消蹲下點擊 盒子");
+
+            if (HNShulkerBox.debug) { player.sendMessage("取消蹲下點擊 盒子");}
             return true;
         }
         return false;
@@ -65,7 +67,8 @@ public class ShulkerBoxUtil {
     public boolean cursorShulkerBoxMove(ItemStack itemClicked) {
         if (itemClicked != null && ShulkerBoxUtil.isShulkerBox(itemClicked.getType()) && event.getRawSlot() >= 0 && event.getRawSlot() < 27) {
             event.setCancelled(true);
-            player.sendMessage("取消放置 盒子位置");
+
+            if (HNShulkerBox.debug) { player.sendMessage("取消放置 盒子位置");}
             return true;
         }
         return false;

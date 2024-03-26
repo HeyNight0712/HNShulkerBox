@@ -6,6 +6,7 @@ import heyblock0712.hnshulkerbox.listeners.OpenShulkerBox;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class HNShulkerBox extends JavaPlugin {
+    public static boolean debug = false;
 
     @Override
     public void onEnable() {
