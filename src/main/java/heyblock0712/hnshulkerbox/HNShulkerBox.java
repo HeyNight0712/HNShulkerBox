@@ -11,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class HNShulkerBox extends JavaPlugin {
     // Debug 用
-    public static boolean debug = true;
+    public static boolean debug = false;
 
     @Override
     public void onEnable() {
