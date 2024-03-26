@@ -7,7 +7,6 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
 
-import javax.swing.plaf.PanelUI;
 import java.util.HashMap;
 import java.util.Map;
 
