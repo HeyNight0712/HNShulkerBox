@@ -34,7 +34,7 @@ public class InventoryClick implements Listener {
         ItemStack itemClicked = event.getCursor();
         int mainHandSlot = player.getInventory().getHeldItemSlot();
 
-        //// 獲取 快捷鍵 Key
+        // 獲取 快捷鍵 Key
         ItemStack hotbarButton;
         if (event.getHotbarButton() != -1) {
             hotbarButton = player.getInventory().getItem(event.getHotbarButton());
@@ -42,8 +42,10 @@ public class InventoryClick implements Listener {
             hotbarButton = null;
         }
 
-        ShulkerBoxUtil util = new ShulkerBoxUtil(event);
+        // 防止快速點擊
+        event.setCancelled(true);
 
+        ShulkerBoxUtil util = new ShulkerBoxUtil(event);
         // 檢查 快捷鍵 v
         if (util.hotbarButtonHandMove(mainHandSlot)) {return;}
 
@@ -54,6 +56,7 @@ public class InventoryClick implements Listener {
         if (util.clickHandMove(mainHandSlot)) {return;}
 
         // // 盒子疊代
+        player.sendMessage(String.valueOf(itemClicked.getType()));
         if (util.cursorShulkerBoxMove(itemClicked)) {return;}
 
         delayedStorage(player, event);
@@ -63,7 +66,12 @@ public class InventoryClick implements Listener {
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent event) {
         Player player = (Player) event.getWhoClicked();
+        ItemStack itemDragged = event.getOldCursor();
+
+        if (ShulkerBoxUtil.cursorDragShulkerBoxMove(event, itemDragged)) {return;}
+
         delayedStorage(player, event);
+        player.sendMessage("快速儲存");
     }
 
     /**

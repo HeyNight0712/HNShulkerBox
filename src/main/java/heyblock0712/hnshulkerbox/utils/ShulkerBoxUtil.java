@@ -3,8 +3,11 @@ package heyblock0712.hnshulkerbox.utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Set;
 
 public class ShulkerBoxUtil {
     private InventoryClickEvent event;
@@ -28,6 +31,7 @@ public class ShulkerBoxUtil {
             player.sendMessage("取消快捷鍵 主手位置");
             return true;
         }
+        event.setCancelled(false);
         return false;
     }
 
@@ -37,6 +41,7 @@ public class ShulkerBoxUtil {
             player.sendMessage("取消快捷鍵 移動盒子");
             return true;
         }
+        event.setCancelled(false);
         return false;
     }
 
@@ -46,14 +51,30 @@ public class ShulkerBoxUtil {
             player.sendMessage("取消點選 主手位置");
             return true;
         }
+        event.setCancelled(false);
         return false;
     }
 
     public boolean cursorShulkerBoxMove(ItemStack itemClicked) {
-        if (itemClicked != null && ShulkerBoxUtil.isShulkerBox(itemClicked.getType()) && event.getRawSlot() > 0 && event.getRawSlot() < 27) {
+        if (itemClicked != null && ShulkerBoxUtil.isShulkerBox(itemClicked.getType()) && event.getRawSlot() >= 0 && event.getRawSlot() < 27) {
             event.setCancelled(true);
             player.sendMessage("取消放置 盒子位置");
             return true;
+        }
+        event.setCancelled(false);
+        return false;
+    }
+
+    public static boolean cursorDragShulkerBoxMove(InventoryDragEvent event, ItemStack itemDragged) {
+        if (itemDragged != null && ShulkerBoxUtil.isShulkerBox(itemDragged.getType())) {
+            Set<Integer> rawSlots = event.getRawSlots();
+            for (Integer slot: rawSlots) {
+                if (slot >= 0 && slot < 27) {
+                    event.setCancelled(true);
+                    event.getWhoClicked().sendMessage("取消拖動放置 盒子位置");
+                    return true;
+                }
+            }
         }
         return false;
     }
