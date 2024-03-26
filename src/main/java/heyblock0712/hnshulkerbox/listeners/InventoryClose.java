@@ -13,6 +13,8 @@ public class InventoryClose implements Listener {
     public void onInventoryClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
 
+        if (!Backpack.hasPlayer(player)) return;
+
         player.playSound(
                 event.getPlayer().getLocation(),
                 Sound.BLOCK_SHULKER_BOX_CLOSE,
