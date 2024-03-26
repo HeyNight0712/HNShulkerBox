@@ -23,7 +23,6 @@ public final class HNShulkerBox extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
         // 每個在線玩家
         for (Player player : getServer().getOnlinePlayers()) {
             if (!InventoryData.hasPlayer(player)) {continue;}
@@ -35,5 +34,6 @@ public final class HNShulkerBox extends JavaPlugin {
                 player.sendMessage("伺服器正在關閉你的盒子發生錯誤!!");
             }
         }
+        getLogger().info("已全數保存所有正在開啟的盒子 正在禁用插件!");
     }
 }
