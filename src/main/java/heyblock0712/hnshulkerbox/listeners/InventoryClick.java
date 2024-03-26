@@ -16,6 +16,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Set;
+
 public class InventoryClick implements Listener {
     private final JavaPlugin plugin;
 
@@ -43,36 +45,54 @@ public class InventoryClick implements Listener {
         }
 
         ShulkerBoxUtil util = new ShulkerBoxUtil(event);
-        // 檢查 快捷鍵 v
+        // 檢查 快捷鍵
         if (util.hotbarButtonHandMove(mainHandSlot)) {return;}
 
-        // // 快捷鍵 移動 ShulkerBox
+        // 快捷鍵 移動 ShulkerBox
         if (util.hotbarButtonShulkerBoxMove(hotbarButton)) {return;}
 
-        // // 主手
+        // 主手
         if (util.clickHandMove(mainHandSlot)) {return;}
 
-        // // 盒子疊代
-        player.sendMessage(String.valueOf(itemClicked.getType()));
+        // 是否蹲下點擊 盒子
+        if (util.isShiftClickShulkerBox(event.getCurrentItem())) {return;}
+
+        // 盒子疊代
         if (util.cursorShulkerBoxMove(itemClicked)) {return;}
+
 
         delayedStorage(player, event);
         player.sendMessage("儲存");
     }
 
+    /**
+     * 檢查拖動物品 是否為指定功能
+     *
+     * @param event 物品拖動事件
+     */
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent event) {
         Player player = (Player) event.getWhoClicked();
         ItemStack itemDragged = event.getOldCursor();
 
-        if (ShulkerBoxUtil.cursorDragShulkerBoxMove(event, itemDragged)) {return;}
+        // 防止拖動 盒子疊代
+        if (ShulkerBoxUtil.isShulkerBox(itemDragged.getType())) {
+            Set<Integer> rawSlots = event.getRawSlots();
+            for (Integer slot: rawSlots) {
+                if (slot >= 0 && slot < 27) {
+                    event.setCancelled(true);
+                    event.getWhoClicked().sendMessage("取消拖動放置 盒子位置");
+                    return;
+                }
+            }
+        }
 
         delayedStorage(player, event);
         player.sendMessage("快速儲存");
     }
 
     /**
-     * 延遲更新 通常是 約50ms
+     * 延遲更新庫存 通常是 約50ms
      *
      * @param player 玩家
      * @param event 事件

@@ -52,25 +52,21 @@ public class ShulkerBoxUtil {
         return false;
     }
 
-    public boolean cursorShulkerBoxMove(ItemStack itemClicked) {
-        if (itemClicked != null && ShulkerBoxUtil.isShulkerBox(itemClicked.getType()) && event.getRawSlot() >= 0 && event.getRawSlot() < 27) {
+    // 是否 蹲下點擊 ShulkerBox
+    public boolean isShiftClickShulkerBox(ItemStack click) {
+        if (click != null && ShulkerBoxUtil.isShulkerBox(click.getType()) && event.isShiftClick()) {
             event.setCancelled(true);
-            player.sendMessage("取消放置 盒子位置");
+            player.sendMessage("取消蹲下點擊 盒子");
             return true;
         }
         return false;
     }
 
-    public static boolean cursorDragShulkerBoxMove(InventoryDragEvent event, ItemStack itemDragged) {
-        if (itemDragged != null && ShulkerBoxUtil.isShulkerBox(itemDragged.getType())) {
-            Set<Integer> rawSlots = event.getRawSlots();
-            for (Integer slot: rawSlots) {
-                if (slot >= 0 && slot < 27) {
-                    event.setCancelled(true);
-                    event.getWhoClicked().sendMessage("取消拖動放置 盒子位置");
-                    return true;
-                }
-            }
+    public boolean cursorShulkerBoxMove(ItemStack itemClicked) {
+        if (itemClicked != null && ShulkerBoxUtil.isShulkerBox(itemClicked.getType()) && event.getRawSlot() >= 0 && event.getRawSlot() < 27) {
+            event.setCancelled(true);
+            player.sendMessage("取消放置 盒子位置");
+            return true;
         }
         return false;
     }
