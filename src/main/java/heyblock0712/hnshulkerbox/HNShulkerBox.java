@@ -1,5 +1,6 @@
 package heyblock0712.hnshulkerbox;
 
+import heyblock0712.hnshulkerbox.listeners.Death;
 import heyblock0712.hnshulkerbox.listeners.InventoryClick;
 import heyblock0712.hnshulkerbox.listeners.InventoryClose;
 import heyblock0712.hnshulkerbox.listeners.OpenShulkerBox;
@@ -14,6 +15,7 @@ public final class HNShulkerBox extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new OpenShulkerBox(), this);
         getServer().getPluginManager().registerEvents(new InventoryClick(), this);
         getServer().getPluginManager().registerEvents(new InventoryClose(), this);
+        getServer().getPluginManager().registerEvents(new Death(), this);
     }
 
     @Override

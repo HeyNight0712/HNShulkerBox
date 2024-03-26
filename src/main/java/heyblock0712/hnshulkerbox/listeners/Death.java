@@ -1,34 +1,26 @@
-package heyblock0712.hnshulkerbox.data;
+package heyblock0712.hnshulkerbox.listeners;
 
+import heyblock0712.hnshulkerbox.data.InventoryData;
+import org.bukkit.Color;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
 
-import javax.swing.plaf.PanelUI;
-import java.util.HashMap;
-import java.util.Map;
+public class Death implements Listener {
+    @EventHandler
+    public void onDeath(PlayerDeathEvent event) {
+        Player player = event.getEntity();
 
-public class InventoryData {
-    private static final Map<Player, Inventory> playerInventory = new HashMap<>();
+        if (!InventoryData.hasPlayer(player)) {return;}
 
-    public static void put(Player player, Inventory inventory) {playerInventory.put(player, inventory);}
+        ItemStack mainHandItem = player.getInventory().getItemInMainHand();
 
-    public static Inventory getInventory(Player player) {
-        return playerInventory.get(player);
-    }
-
-    public static boolean hasPlayer(Player player) {
-        return playerInventory.containsKey(player);
-    }
-
-    public static void removePlayer(Player player) {
-        playerInventory.remove(player);
-    }
-
-    public static boolean updateShulkerBox(Player player, ItemStack mainHandItem) {
         if (mainHandItem.getItemMeta() instanceof BlockStateMeta) {
             BlockStateMeta blockStateMeta = (BlockStateMeta) mainHandItem.getItemMeta();
             if (blockStateMeta.getBlockState() instanceof InventoryHolder) {
@@ -41,10 +33,12 @@ public class InventoryData {
                 mainHandItem.setItemMeta(blockStateMeta);
 
                 player.getInventory().setItemInMainHand(mainHandItem);
+
+                // 移除玩家的数据，因为玩家已经死亡
                 InventoryData.removePlayer(player);
-                return true;
             }
+        } else {
+            player.sendMessage("死亡儲存盒子錯誤!!");
         }
-        return false;
     }
 }

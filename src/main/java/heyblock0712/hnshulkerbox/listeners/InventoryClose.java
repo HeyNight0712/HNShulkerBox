@@ -30,24 +30,10 @@ public class InventoryClose implements Listener {
 
         // 覆蓋手上盒子
         ItemStack mainHandItem = player.getInventory().getItemInMainHand();
-        if (mainHandItem.getItemMeta() instanceof BlockStateMeta) {
-            BlockStateMeta blockStateMeta = (BlockStateMeta) mainHandItem.getItemMeta();
-            if (blockStateMeta.getBlockState() instanceof InventoryHolder) {
-                InventoryHolder boxInventory = (InventoryHolder) blockStateMeta.getBlockState();
-
-                Inventory inventory = InventoryData.getInventory(player);
-                boxInventory.getInventory().setContents(inventory.getContents());
-
-                blockStateMeta.setBlockState((BlockState) boxInventory);
-                mainHandItem.setItemMeta(blockStateMeta);
-
-                // 套用 並 移除資料
-                player.sendMessage("["+ player.getName()+ "] " + "關閉 界伏盒");
-                player.getInventory().setItemInMainHand(mainHandItem);
-                InventoryData.removePlayer(player);
-            }
+        if (InventoryData.updateShulkerBox(player, mainHandItem)) {
+            player.sendMessage("["+ player.getName()+ "] " + "關閉 界伏盒");
         }else {
-            player.sendMessage(Color.RED + "Error!");
+            player.sendMessage("關閉儲存盒子錯誤!!!");
         }
     }
 }
