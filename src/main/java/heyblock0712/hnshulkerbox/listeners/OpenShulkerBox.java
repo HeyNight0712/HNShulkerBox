@@ -61,7 +61,7 @@ public class OpenShulkerBox implements Listener {
                 1.0F,
                 1.0F);
 
-        player.sendMessage("["+ player.getName()+ "] " + "關閉 界伏盒");
+        player.sendMessage("["+ player.getName()+ "] " + "開啟 界伏盒");
         event.getPlayer().openInventory(inventoryData.getInventory(player));
 
         // 取消事件
