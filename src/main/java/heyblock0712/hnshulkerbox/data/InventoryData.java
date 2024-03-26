@@ -2,13 +2,12 @@ package heyblock0712.hnshulkerbox.data;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class InventoryData {
-    private static final Map<Player, Inventory> playerInventory = new HashMap<Player, Inventory>();
+    private static final Map<Player, Inventory> playerInventory = new HashMap<>();
 
     public static void put(Player player, Inventory inventory) {playerInventory.put(player, inventory);}
 

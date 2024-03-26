@@ -11,16 +11,10 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Set;
 
 public class InventoryClick implements Listener {
-    private final JavaPlugin plugin;
-
-    public InventoryClick(JavaPlugin plugin) {
-        this.plugin = plugin;
-    }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
