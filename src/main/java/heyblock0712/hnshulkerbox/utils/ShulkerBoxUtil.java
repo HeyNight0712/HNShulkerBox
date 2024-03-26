@@ -31,7 +31,6 @@ public class ShulkerBoxUtil {
             player.sendMessage("取消快捷鍵 主手位置");
             return true;
         }
-        event.setCancelled(false);
         return false;
     }
 
@@ -41,7 +40,6 @@ public class ShulkerBoxUtil {
             player.sendMessage("取消快捷鍵 移動盒子");
             return true;
         }
-        event.setCancelled(false);
         return false;
     }
 
@@ -51,7 +49,6 @@ public class ShulkerBoxUtil {
             player.sendMessage("取消點選 主手位置");
             return true;
         }
-        event.setCancelled(false);
         return false;
     }
 
@@ -61,7 +58,6 @@ public class ShulkerBoxUtil {
             player.sendMessage("取消放置 盒子位置");
             return true;
         }
-        event.setCancelled(false);
         return false;
     }
 

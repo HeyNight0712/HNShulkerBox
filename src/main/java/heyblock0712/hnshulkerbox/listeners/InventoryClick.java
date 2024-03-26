@@ -42,9 +42,6 @@ public class InventoryClick implements Listener {
             hotbarButton = null;
         }
 
-        // 防止快速點擊
-        event.setCancelled(true);
-
         ShulkerBoxUtil util = new ShulkerBoxUtil(event);
         // 檢查 快捷鍵 v
         if (util.hotbarButtonHandMove(mainHandSlot)) {return;}
