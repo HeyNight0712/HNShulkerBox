@@ -37,15 +37,6 @@ public class Backpack{
         playerItems.remove(player);
     }
 
-    /**
-     * 搜索並返回 且刪除
-     * 
-     * @param player 玩家
-     * @return 返回搜索 並起刪除
-     */
-    public static ItemStack retrieveItem(Player player) {
-        return playerItems.remove(player);
-    }
 
     /**
      * 搜索並返回

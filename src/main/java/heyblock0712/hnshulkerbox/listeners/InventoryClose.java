@@ -1,6 +1,7 @@
 package heyblock0712.hnshulkerbox.listeners;
 
 import heyblock0712.hnshulkerbox.data.Backpack;
+import heyblock0712.hnshulkerbox.data.InventoryData;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,7 +14,7 @@ public class InventoryClose implements Listener {
     public void onInventoryClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
 
-        if (!Backpack.hasPlayer(player)) return;
+        if (!InventoryData.hasPlayer(player)) return;
 
         player.playSound(
                 event.getPlayer().getLocation(),
@@ -22,6 +23,7 @@ public class InventoryClose implements Listener {
                 1.0F);
 
         // 移除資料
-        Backpack.removePlayer(player);
+        player.sendMessage("["+ player.getName()+ "] " + "關閉 界伏盒");
+        InventoryData.removePlayer(player);
     }
 }

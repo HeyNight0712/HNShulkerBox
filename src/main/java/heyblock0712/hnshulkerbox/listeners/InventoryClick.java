@@ -100,7 +100,6 @@ public class InventoryClick implements Listener {
      * @param <T> 傳遞事件
      */
     private <T extends InventoryEvent> void delayedStorage(Player player, T event) {
-        Bukkit.getScheduler().runTask(plugin, () -> {
             // 获取潜影盒的物品栏
             ItemStack mainHeadItem = player.getInventory().getItemInMainHand();
             ShulkerBox shulkerBox = (ShulkerBox) ((BlockStateMeta) mainHeadItem.getItemMeta()).getBlockState();
@@ -112,7 +111,5 @@ public class InventoryClick implements Listener {
             // 保存新的库存内容到潜影盒
             BlockStateMeta itemMeta = (BlockStateMeta) mainHeadItem.getItemMeta();
             itemMeta.setBlockState(shulkerBox);
-            mainHeadItem.setItemMeta(itemMeta);
-        });
     }
 }
