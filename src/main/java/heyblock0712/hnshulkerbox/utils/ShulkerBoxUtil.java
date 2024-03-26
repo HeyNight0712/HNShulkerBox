@@ -8,9 +8,9 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 
 public class ShulkerBoxUtil {
-    private InventoryClickEvent event;
+    private final InventoryClickEvent event;
 
-    private Player player;
+    private final Player player;
 
     public ShulkerBoxUtil(InventoryClickEvent event) {
         this.event = event;
