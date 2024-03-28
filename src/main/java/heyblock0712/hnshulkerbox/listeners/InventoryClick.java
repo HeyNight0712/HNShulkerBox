@@ -64,6 +64,10 @@ public class InventoryClick implements Listener {
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent event) {
         Player player = (Player) event.getWhoClicked();
+
+        // 過濾
+        if (!InventoryData.hasPlayer(player)) return;
+
         ItemStack itemDragged = event.getOldCursor();
 
         // 防止拖動 盒子疊代
