@@ -1,12 +1,14 @@
 package heyblock0712.hnshulkerbox.listeners;
 
 import heyblock0712.hnshulkerbox.data.InventoryData;
+import heyblock0712.hnshulkerbox.utils.MessageManager;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class InventoryClose implements Listener {
 
@@ -24,10 +26,22 @@ public class InventoryClose implements Listener {
 
         // 覆蓋手上盒子
         ItemStack mainHandItem = player.getInventory().getItemInMainHand();
+
+        // 轉換文字
+        ItemMeta itemMeta = mainHandItem.getItemMeta();
+        String name = itemMeta.hasDisplayName() ? itemMeta.getDisplayName() : MessageManager.getString("DefaultName");
+
+        String title = MessageManager.getString("Title");
+        String closeMessage = MessageManager.getString("Player.Close");
+        closeMessage = closeMessage.replace("%name%", name);
+
+        String closeErrorMessage = MessageManager.getString("Player.CloseError");
+        closeErrorMessage = closeErrorMessage.replace("%name%", name);
+
         if (InventoryData.updateShulkerBox(player, mainHandItem)) {
-            player.sendMessage("["+ player.getName()+ "] " + "關閉 界伏盒");
+            player.sendMessage(title + closeMessage);
         }else {
-            player.sendMessage("關閉儲存盒子錯誤!!!");
+            player.sendMessage(title + closeErrorMessage);
         }
     }
 }

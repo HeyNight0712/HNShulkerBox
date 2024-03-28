@@ -1,0 +1,6 @@
+Title: '&7【&3隨身界伏盒&7】'
+DefaultName: "&rShulker Box"
+Player:
+  Open: "&7開啟 %name%"
+  Close: "&7關閉 %name%"
+  CloseError: "&c關閉 %name% &c時發生錯誤 無法儲存!"

@@ -1,6 +1,7 @@
 package heyblock0712.hnshulkerbox.listeners;
 
 import heyblock0712.hnshulkerbox.data.InventoryData;
+import heyblock0712.hnshulkerbox.utils.MessageManager;
 import heyblock0712.hnshulkerbox.utils.ShulkerBoxUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -43,7 +44,7 @@ public class OpenShulkerBox implements Listener {
 
         // 模擬庫存
         ItemMeta itemMeta = item.getItemMeta();
-        String name = itemMeta.hasDisplayName() ? itemMeta.getDisplayName() : "Shulker Box";
+        String name = itemMeta.hasDisplayName() ? itemMeta.getDisplayName() : MessageManager.getString("DefaultName");
 
         Inventory inventory = Bukkit.createInventory(null, 27, name);
         inventory.setContents(originalContents);
@@ -58,8 +59,12 @@ public class OpenShulkerBox implements Listener {
                 1.0F,
                 1.0F);
 
-        // 開啟
-        player.sendMessage("["+ player.getName()+ "] " + "開啟 界伏盒");
+        // 訊息轉換
+        String title = MessageManager.getString("Title");
+        String openMessage = MessageManager.getString("Player.Open");
+        openMessage = openMessage.replace("%name%", name);
+
+        player.sendMessage(title + openMessage);
         event.getPlayer().openInventory(InventoryData.getInventory(player));
 
         // 取消事件
